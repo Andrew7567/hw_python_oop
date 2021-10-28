@@ -7,15 +7,15 @@ class InfoMessage:
                  speed: float,
                  calories: float) -> None:
         self.training_type = training_type
-        self.duration = duration
-        self.distance = distance
-        self.speed = speed
-        self.calories = calories
+        self.duration = round(duration, 3)
+        self.distance = round(distance, 3)
+        self.speed = round(speed, 3)
+        self.calories = round(calories, 3)
 
     def output(self):
-        return(f"Тип тренировки: {self.training_type}; Длительность: {round(self.duration,3)}" +
-               f"ч.; Дистанция: {round(self.distance,3)} км; Ср. скорость: {round(self.speed,3)} км/ч;" +
-               f" Потрачено ккал: {round(self.calories,3)}.")
+        return(f"Тип тренировки: {self.training_type}; Длительность: "
+               +f"{self.duration} ч.; Дистанция: {self.distance} км; Ср. скорость: "
+               + f"{self.speed} км/ч; Потрачено ккал: {self.calories}.")
 
 
 class Training:
@@ -58,8 +58,8 @@ class Running(Training):
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
-        return (coeff_calorie_1 * self.get_mean_speed() - 
-                coeff_calorie_2) * self.weight / self.M_IN_KM * (self.duration * 60)
+        return (coeff_calorie_1 * self.get_mean_speed()
+                - coeff_calorie_2) * self.weight / self.M_IN_KM * (self.duration * 60)
 
 
 coeff_calorie_3 = 0.035
