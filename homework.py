@@ -12,7 +12,7 @@ class InfoMessage:
         self.speed = round(speed, 3)
         self.calories = round(calories, 3)
 
-    def output(self):
+    def get_message(self):
         return(f"Тип тренировки: {self.training_type}; Длительность: "
                f"{self.duration} ч.; Дистанция: {self.distance} км; Ср. ско"
                f"рость: {self.speed} км/ч; Потрачено ккал: {self.calories}.")
@@ -102,7 +102,7 @@ class Swimming(Training):
                 / self.duration)
 
     def get_spent_calories(self) -> float:
-        return (self.get_mean_speed() + coeff_calorie_5
+        return ((self.get_mean_speed() + coeff_calorie_5)
                 * coeff_calorie_6 * self.weight)
 
 
@@ -118,8 +118,8 @@ def read_package(workout_type: str, data: list) -> Training:
 
 def main(training: Training):
     """Главная функция."""
-    info = InfoMessage.output(training.show_training_info())
-    return (info)
+    info = InfoMessage.get_message(training.show_training_info())
+    print(info)
 
 
 if __name__ == '__main__':
@@ -130,4 +130,4 @@ if __name__ == '__main__':
     ]
     for workout_type, data in packages:
         training = read_package(workout_type, data)
-        print(main(training))
+        main(training)
