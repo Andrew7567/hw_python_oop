@@ -14,8 +14,8 @@ class InfoMessage:
 
     def get_message(self) -> str:
         return(str(f"Тип тренировки: {self.training_type}; Длительность: "
-                   f"{self.duration} ч.; Дистанция: {self.distance} км; Ср. скор"
-                   f"ость: {self.speed} км/ч; Потрачено ккал: {self.calories}."))
+               f"{self.duration} ч.; Дистанция: {self.distance} км; Ср. скор"
+               f"ость: {self.speed} км/ч; Потрачено ккал: {self.calories}."))
 
 
 class Training:
@@ -76,8 +76,8 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         return (coeff_calorie_3 * self.weight
-                +(self.get_mean_speed()**2 // self.height)
-                *coeff_calorie_4 * self.weight) * (self.duration * 60)
+                + (self.get_mean_speed()**2 // self.height)
+                * coeff_calorie_4 * self.weight) * (self.duration * 60)
 
 
 coeff_calorie_5 = 1.1
@@ -103,7 +103,7 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
         return ((self.get_mean_speed() + coeff_calorie_5)
-                *coeff_calorie_6 * self.weight)
+                * coeff_calorie_6 * self.weight)
 
 
 def read_package(workout_type: str, data: list) -> Training:
