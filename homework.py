@@ -6,6 +6,7 @@ class InfoMessage:
                  distance: float,
                  speed: float,
                  calories: float) -> None:
+        # убрал round
         self.training_type = training_type
         self.duration = duration
         self.distance = distance
@@ -96,8 +97,9 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-    def get_distance(self) -> float:
-        return (self.length_pool * self.count_pool) / self.M_IN_KM
+    #  этот метод не надо преопределять
+    # def get_distance(self) -> float:
+    #     return (self.length_pool * self.count_pool) / self.M_IN_KM
 
     def get_mean_speed(self):
         return (self.length_pool * self.count_pool / self.M_IN_KM
@@ -124,7 +126,7 @@ def main(training: Training) -> None:
     print(info.get_message())
 
 
-if __name__ == '__main__' -> None:
+if __name__ == '__main__':
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
