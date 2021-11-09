@@ -124,7 +124,7 @@ def main(training: Training) -> None:
     print(info.get_message())
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' -> None:
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
