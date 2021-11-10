@@ -130,6 +130,6 @@ if __name__ == '__main__':
 types = {'SWM': Swimming,
          'RUN': Running,
          'WLK': SportsWalking}
-    for workout_type, data in packages:
-        training = read_package(workout_type, data, types)
-        main(training)
+for workout_type, data in packages:
+    training = read_package(workout_type, data, types)
+    main(training)
