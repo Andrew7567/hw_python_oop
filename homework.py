@@ -109,10 +109,14 @@ class Swimming(Training):
                 * coeff6 * self.weight)
 
 
-def read_package(workout_type: str, data: list, types: dict) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     training1 = types[workout_type]
     return training1(*data)
+
+types = {'SWM': Swimming,
+         'RUN': Running,
+         'WLK': SportsWalking}
 
 
 def main(training: Training) -> None:
@@ -127,9 +131,6 @@ if __name__ == '__main__':
         ('RUN', [15000, 1, 75]),
         ('WLK', [9000, 1, 75, 180]),
     ]
-types = {'SWM': Swimming,
-         'RUN': Running,
-         'WLK': SportsWalking}
 for workout_type, data in packages:
-    training = read_package(workout_type, data, types)
+    training = read_package(workout_type, data)
     main(training)
