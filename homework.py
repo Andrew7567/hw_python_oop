@@ -1,5 +1,7 @@
 from typing import ClassVar
 from typing import Final
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -56,6 +58,7 @@ coeff1: Final = 18
 coeff2: Final = 20
 min_h: Final = 60
 
+
 class Running(Training):
     """Тренировка: бег."""
 
@@ -105,6 +108,7 @@ class Swimming(Training):
     def get_spent_calories(self) -> float:
         return ((self.get_mean_speed() + coeff5)
                 * coeff6 * self.weight)
+
 
 types = {'SWM': Swimming,
          'RUN': Running,
