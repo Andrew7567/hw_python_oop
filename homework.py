@@ -120,6 +120,7 @@ def read_package(workout_type: str, data: list, types: dict) -> Training:
     training1 = types[workout_type]
     return training1(*data)
 
+
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
