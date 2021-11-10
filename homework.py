@@ -1,5 +1,7 @@
 from typing import ClassVar, Final
 class InfoMessage:
+
+
     """Информационное сообщение о тренировке."""
     def __init__(self,
                  training_type: str,
@@ -55,6 +57,7 @@ coeff1: Final = 18
 coeff2: Final = 20
 min_h: Final = 60
 
+
 class Running(Training):
     """Тренировка: бег."""
 
@@ -105,6 +108,7 @@ class Swimming(Training):
         return ((self.get_mean_speed() + coeff5)
                 * coeff6 * self.weight)
 
+
 types = {'SWM': Swimming,
          'RUN': Running,
          'WLK': SportsWalking}
@@ -114,6 +118,7 @@ def read_package(workout_type: str, data: list, types: dict) -> Training:
     """Прочитать данные полученные от датчиков."""
     training1 = types[workout_type]
     return training1(*data)
+
 
 def main(training: Training) -> None:
     """Главная функция."""
