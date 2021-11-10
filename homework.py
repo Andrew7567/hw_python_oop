@@ -1,7 +1,4 @@
 from typing import ClassVar
-from typing import Final
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -54,10 +51,9 @@ class Training:
         return Message1
 
 
-coeff1: Final = 18
-coeff2: Final = 20
-min_h: Final = 60
-
+coeff1: int = 18
+coeff2: int = 20
+min_h: int = 60
 
 class Running(Training):
     """Тренировка: бег."""
@@ -71,8 +67,8 @@ class Running(Training):
                 * (self.duration * min_h))
 
 
-coeff3: Final = 0.035
-coeff4: Final = 0.029
+coeff3: float = 0.035
+coeff4: float = 0.029
 
 
 class SportsWalking(Training):
@@ -87,13 +83,13 @@ class SportsWalking(Training):
                 * coeff4 * self.weight) * (self.duration * min_h)
 
 
-coeff5: Final = 1.1
-coeff6: Final = 2
+coeff5: float = 1.1
+coeff6: float = 2
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP: Final = 1.38
+    LEN_STEP: float = 1.38
 
     def __init__(self, action, duration, weight,
                  length_pool: float, count_pool) -> None:
@@ -109,7 +105,6 @@ class Swimming(Training):
         return ((self.get_mean_speed() + coeff5)
                 * coeff6 * self.weight)
 
-
 types = {'SWM': Swimming,
          'RUN': Running,
          'WLK': SportsWalking}
@@ -119,7 +114,6 @@ def read_package(workout_type: str, data: list, types: dict) -> Training:
     """Прочитать данные полученные от датчиков."""
     training1 = types[workout_type]
     return training1(*data)
-
 
 def main(training: Training) -> None:
     """Главная функция."""
