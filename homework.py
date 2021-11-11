@@ -109,15 +109,15 @@ class Swimming(Training):
                 * coeff6 * self.weight)
 
 
+types = {'SWM': Swimming,
+         'RUN': Running,
+         'WLK': SportsWalking}
+
+
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     training1 = types[workout_type]
     return training1(*data)
-
-
-types = {'SWM': Swimming,
-         'RUN': Running,
-         'WLK': SportsWalking}
 
 
 def main(training: Training) -> None:
