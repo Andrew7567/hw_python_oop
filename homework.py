@@ -1,4 +1,4 @@
-from typing import ClassVar
+from typing import Final
 
 
 class InfoMessage:
@@ -25,8 +25,8 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP: ClassVar[float] = 0.65
-    M_IN_KM: ClassVar[int] = 1000
+    LEN_STEP = 0.65
+    M_IN_KM = 1000
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         self.action = action
@@ -47,22 +47,19 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        Message1 = InfoMessage(self.__class__.__name__, self.duration,
+        Message1 = InfoMessage(type(self).__name__, self.duration,
                                self.get_distance(), self.get_mean_speed(),
                                self.get_spent_calories())
         return Message1
 
 
-coeff1: int = 18
-coeff2: int = 20
-min_h: int = 60
+coeff1: Final[int] = 18
+coeff2: Final[int] = 20
+min_h: Final[int] = 60
 
 
 class Running(Training):
     """Тренировка: бег."""
-
-    def __init__(self, action, duration, weight) -> None:
-        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         return ((coeff1 * self.get_mean_speed()
@@ -70,8 +67,8 @@ class Running(Training):
                 * (self.duration * min_h))
 
 
-coeff3: float = 0.035
-coeff4: float = 0.029
+coeff3: Final[float] = 0.035
+coeff4: Final[float] = 0.029
 
 
 class SportsWalking(Training):
@@ -86,8 +83,8 @@ class SportsWalking(Training):
                 * coeff4 * self.weight) * (self.duration * min_h)
 
 
-coeff5: float = 1.1
-coeff6: float = 2
+coeff5: Final[float] = 1.1
+coeff6: Final[int] = 2
 
 
 class Swimming(Training):
