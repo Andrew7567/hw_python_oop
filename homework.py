@@ -1,6 +1,3 @@
-from typing import Final
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
