@@ -59,6 +59,7 @@ class Running(Training):
     coeff1: ClassVar[int] = 18
     coeff2: ClassVar[int] = 20
     min_h: ClassVar[int] = 60
+
     def get_spent_calories(self) -> float:
         return ((self.coeff1 * self.get_mean_speed()
                 - self.coeff2) * self.weight / self.M_IN_KM
@@ -69,6 +70,7 @@ class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     coeff3: ClassVar[float] = 0.035
     coeff4: ClassVar[float] = 0.029
+
     def __init__(self, action, duration, weight, height: float) -> None:
         super().__init__(action, duration, weight)
         self.height = height
