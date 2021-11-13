@@ -1,3 +1,6 @@
+from typing import ClassVar
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -22,8 +25,9 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP = 0.65
-    M_IN_KM = 1000
+    LEN_STEP: ClassVar[float] = 0.65
+    M_IN_KM: ClassVar[int] = 1000
+    min_h: ClassVar[int] = 60
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         self.action = action
@@ -50,43 +54,36 @@ class Training:
         return Message1
 
 
-coeff1: Final[int] = 18
-coeff2: Final[int] = 20
-min_h: Final[int] = 60
-
-
 class Running(Training):
     """Тренировка: бег."""
-
+    coeff1: ClassVar[int] = 18
+    coeff2: ClassVar[int] = 20
+    min_h: ClassVar[int] = 60
     def get_spent_calories(self) -> float:
-        return ((coeff1 * self.get_mean_speed()
-                - coeff2) * self.weight / self.M_IN_KM
-                * (self.duration * min_h))
-
-
-coeff3: Final[float] = 0.035
-coeff4: Final[float] = 0.029
+        return ((self.coeff1 * self.get_mean_speed()
+                - self.coeff2) * self.weight / self.M_IN_KM
+                * (self.duration * self.min_h))
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
+    coeff3: ClassVar[float] = 0.035
+    coeff4: ClassVar[float] = 0.029
     def __init__(self, action, duration, weight, height: float) -> None:
         super().__init__(action, duration, weight)
         self.height = height
 
     def get_spent_calories(self) -> float:
-        return (coeff3 * self.weight
+        return (self.coeff3 * self.weight
                 + (self.get_mean_speed() ** 2 // self.height)
-                * coeff4 * self.weight) * (self.duration * min_h)
-
-
-coeff5: Final[float] = 1.1
-coeff6: Final[int] = 2
+                * self.coeff4 * self.weight) * (self.duration * self.min_h)
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP: float = 1.38
+    coeff5: ClassVar[float] = 1.1
+    coeff6: ClassVar[int] = 2
+    LEN_STEP: ClassVar[float] = 1.38
 
     def __init__(self, action, duration, weight,
                  length_pool: float, count_pool) -> None:
@@ -99,8 +96,8 @@ class Swimming(Training):
                 / self.duration)
 
     def get_spent_calories(self) -> float:
-        return ((self.get_mean_speed() + coeff5)
-                * coeff6 * self.weight)
+        return ((self.get_mean_speed() + self.coeff5)
+                * self.coeff6 * self.weight)
 
 
 types = {'SWM': Swimming,
