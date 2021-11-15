@@ -27,7 +27,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP: ClassVar[float] = 0.65
     M_IN_KM: ClassVar[int] = 1000
-    min_h: ClassVar[int] = 60
+    min_h = 60
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         self.action = action
@@ -109,8 +109,11 @@ types = {'SWM': Swimming,
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training1 = types[workout_type]
-    return training1(*data)
+    training = types[workout_type]
+    try:
+        return training(*data)
+    except:
+        raise "Ошибка"
 
 
 def main(training: Training) -> None:
