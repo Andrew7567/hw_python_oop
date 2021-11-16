@@ -1,5 +1,5 @@
 from typing import ClassVar
-from dataclass import dataclass
+from dataclasses import dataclass
 
 
 class InfoMessage:
@@ -27,14 +27,9 @@ class InfoMessage:
 @dataclass
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP: ClassVar[float] = 0.65
-    M_IN_KM: ClassVar[int] = 1000
-    min_h: ClassVar[int] = 60
-
-    def __init__(self, action: int, duration: float, weight: float) -> None:
-        self.action = action
-        self.duration = duration
-        self.weight = weight
+    action: int
+    duration: float
+    weight: float
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -54,50 +49,41 @@ class Training:
                                self.get_distance(), self.get_mean_speed(),
                                self.get_spent_calories())
         return Message1
+    LEN_STEP: ClassVar[float] = 0.65
+    M_IN_KM: ClassVar[int] = 1000
+    min_h: ClassVar[int] = 60
 
 
 @dataclass
 class Running(Training):
     """Тренировка: бег."""
-    coeff1: ClassVar[int] = 18
-    coeff2: ClassVar[int] = 20
-    min_h: ClassVar[int] = 60
 
     def get_spent_calories(self) -> float:
         return ((self.coeff1 * self.get_mean_speed()
                 - self.coeff2) * self.weight / self.M_IN_KM
                 * (self.duration * self.min_h))
+    coeff1: ClassVar[int] = 18
+    coeff2: ClassVar[int] = 20
+    min_h: ClassVar[int] = 60
 
 
 @dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    coeff3: ClassVar[float] = 0.035
-    coeff4: ClassVar[float] = 0.029
-
-    def __init__(self, action, duration, weight, height: float) -> None:
-        super().__init__(action, duration, weight)
-        self.height = height
+    height: float
 
     def get_spent_calories(self) -> float:
         return (self.coeff3 * self.weight
                 + (self.get_mean_speed() ** 2 // self.height)
                 * self.coeff4 * self.weight) * (self.duration * self.min_h)
-
+    coeff3: ClassVar[float] = 0.035
+    coeff4: ClassVar[float] = 0.029
 
 @dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
-    coeff5: ClassVar[float] = 1.1
-    coeff6: ClassVar[int] = 2
-    LEN_STEP: ClassVar[float] = 1.38
-
-    def __init__(self, action, duration, weight,
-                 length_pool: float, count_pool) -> None:
-        super().__init__(action, duration, weight)
-        self.length_pool = length_pool
-        self.count_pool = count_pool
-
+    length_pool: int
+    count_pool: int
     def get_mean_speed(self):
         return (self.length_pool * self.count_pool / self.M_IN_KM
                 / self.duration)
@@ -105,7 +91,9 @@ class Swimming(Training):
     def get_spent_calories(self) -> float:
         return ((self.get_mean_speed() + self.coeff5)
                 * self.coeff6 * self.weight)
-
+    coeff5: ClassVar[float] = 1.1
+    coeff6: ClassVar[int] = 2
+    LEN_STEP: ClassVar[float] = 1.38
 
 types = {'SWM': Swimming,
          'RUN': Running,
@@ -114,8 +102,8 @@ types = {'SWM': Swimming,
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training1 = types[workout_type]
-    return training1(*data)
+    training = types[workout_type]
+    return training(*data)
 
 
 def main(training: Training) -> None:
