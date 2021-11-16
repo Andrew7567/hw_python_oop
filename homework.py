@@ -78,7 +78,7 @@ class SportsWalking(Training):
                 * self.coeff4 * self.weight) * (self.duration * self.min_h)
     coeff3: ClassVar[float] = 0.035
     coeff4: ClassVar[float] = 0.029
-        
+
 
 @dataclass
 class Swimming(Training):
@@ -96,6 +96,7 @@ class Swimming(Training):
     coeff5: ClassVar[float] = 1.1
     coeff6: ClassVar[int] = 2
     LEN_STEP: ClassVar[float] = 1.38
+
 
 types = {'SWM': Swimming,
          'RUN': Running,
