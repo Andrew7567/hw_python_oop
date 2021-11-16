@@ -1,4 +1,5 @@
 from typing import ClassVar
+from dataclass import dataclass
 
 
 class InfoMessage:
@@ -23,6 +24,7 @@ class InfoMessage:
                 f'Потрачено ккал: {self.calories:.3f}.')
 
 
+@dataclass
 class Training:
     """Базовый класс тренировки."""
     LEN_STEP: ClassVar[float] = 0.65
@@ -54,6 +56,7 @@ class Training:
         return Message1
 
 
+@dataclass
 class Running(Training):
     """Тренировка: бег."""
     coeff1: ClassVar[int] = 18
@@ -66,6 +69,7 @@ class Running(Training):
                 * (self.duration * self.min_h))
 
 
+@dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     coeff3: ClassVar[float] = 0.035
@@ -81,6 +85,7 @@ class SportsWalking(Training):
                 * self.coeff4 * self.weight) * (self.duration * self.min_h)
 
 
+@dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
     coeff5: ClassVar[float] = 1.1
