@@ -1,5 +1,5 @@
 from typing import ClassVar
-
+from dataclasses import dataclass
 
 class InfoMessage:
     """Информационное сообщение о тренировке."""
@@ -25,9 +25,9 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP: ClassVar[float] = 0.65
-    M_IN_KM: ClassVar[int] = 1000
-    min_h = 60
+    LEN_STEP: float = 0.65
+    M_IN_KM: int = 1000
+    min_h: int = 60
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         self.action = action
@@ -54,6 +54,7 @@ class Training:
         return Message1
 
 
+@dataclass
 class Running(Training):
     """Тренировка: бег."""
     coeff1: ClassVar[int] = 18
@@ -66,6 +67,7 @@ class Running(Training):
                 * (self.duration * self.min_h))
 
 
+@dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     coeff3: ClassVar[float] = 0.035
@@ -81,6 +83,7 @@ class SportsWalking(Training):
                 * self.coeff4 * self.weight) * (self.duration * self.min_h)
 
 
+@dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
     coeff5: ClassVar[float] = 1.1
@@ -110,10 +113,7 @@ types = {'SWM': Swimming,
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     training = types[workout_type]
-    try:
-        return training(*data)
-    except:
-        raise "Ошибка"
+    return training(*data)
 
 
 def main(training: Training) -> None:
