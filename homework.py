@@ -78,12 +78,14 @@ class SportsWalking(Training):
                 * self.coeff4 * self.weight) * (self.duration * self.min_h)
     coeff3: ClassVar[float] = 0.035
     coeff4: ClassVar[float] = 0.029
+        
 
 @dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
     length_pool: int
     count_pool: int
+
     def get_mean_speed(self):
         return (self.length_pool * self.count_pool / self.M_IN_KM
                 / self.duration)
