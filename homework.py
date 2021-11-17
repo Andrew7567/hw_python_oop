@@ -105,8 +105,12 @@ types = {'SWM': Swimming,
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training = types[workout_type]
-    return training(*data)
+    if workout_type in types.keys():
+        training = types[workout_type]
+        return training(*data)
+    else:
+        raise KeyError("Ошибка!")
+
 
 
 def main(training: Training) -> None:
