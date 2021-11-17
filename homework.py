@@ -57,13 +57,13 @@ class Training:
 @dataclass
 class Running(Training):
     """Тренировка: бег."""
-    Coeff1: ClassVar[int] = 18
-    Coeff2: ClassVar[int] = 20
+    COEFF1: ClassVar[int] = 18
+    COEFF2: ClassVar[int] = 20
     MIN_H: ClassVar[int] = 60
 
     def get_spent_calories(self) -> float:
-        return ((self.Coeff1 * self.get_mean_speed()
-                - self.Coeff2) * self.weight / self.M_IN_KM
+        return ((self.COEFF1 * self.get_mean_speed()
+                - self.COEFF2) * self.weight / self.M_IN_KM
                 * (self.duration * self.MIN_H))
 
 
@@ -71,13 +71,13 @@ class Running(Training):
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     height: float
-    Coeff3: ClassVar[float] = 0.035
-    Coeff4: ClassVar[float] = 0.029
+    COEFF3: ClassVar[float] = 0.035
+    COEFF4: ClassVar[float] = 0.029
 
     def get_spent_calories(self) -> float:
-        return (self.Coeff3 * self.weight
+        return (self.COEFF3 * self.weight
                 + (self.get_mean_speed() ** 2 // self.height)
-                * self.Coeff4 * self.weight) * (self.duration * self.MIN_H)
+                * self.COEFF4 * self.weight) * (self.duration * self.MIN_H)
 
 
 @dataclass
@@ -85,8 +85,8 @@ class Swimming(Training):
     """Тренировка: плавание."""
     length_pool: int
     count_pool: int
-    Coeff5: ClassVar[float] = 1.1
-    Coeff6: ClassVar[int] = 2
+    COEFF5: ClassVar[float] = 1.1
+    COEFF6: ClassVar[int] = 2
     LEN_STEP: ClassVar[float] = 1.38
 
     def get_mean_speed(self):
@@ -94,8 +94,8 @@ class Swimming(Training):
                 / self.duration)
 
     def get_spent_calories(self) -> float:
-        return ((self.get_mean_speed() + self.Coeff5)
-                * self.Coeff6 * self.weight)
+        return ((self.get_mean_speed() + self.COEFF5)
+                * self.COEFF6 * self.weight)
 
 
 types = {'SWM': Swimming,
