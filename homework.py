@@ -111,6 +111,7 @@ def read_package(workout_type: str, data: list) -> Training:
     else:
         raise KeyError("Ошибка!")
 
+ 
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
