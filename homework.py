@@ -32,7 +32,7 @@ class Training:
     weight: float
     LEN_STEP: ClassVar[float] = 0.65
     M_IN_KM: ClassVar[int] = 1000
-    min_h: ClassVar[int] = 60
+    MIN_H: ClassVar[int] = 60
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -59,12 +59,12 @@ class Running(Training):
     """Тренировка: бег."""
     Coeff1: ClassVar[int] = 18
     Coeff2: ClassVar[int] = 20
-    min_h: ClassVar[int] = 60
+    MIN_H: ClassVar[int] = 60
 
     def get_spent_calories(self) -> float:
         return ((self.Coeff1 * self.get_mean_speed()
                 - self.Coeff2) * self.weight / self.M_IN_KM
-                * (self.duration * self.min_h))
+                * (self.duration * self.MIN_H))
 
 
 @dataclass
@@ -77,7 +77,7 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         return (self.Coeff3 * self.weight
                 + (self.get_mean_speed() ** 2 // self.height)
-                * self.Coeff4 * self.weight) * (self.duration * self.min_h)
+                * self.Coeff4 * self.weight) * (self.duration * self.MIN_H)
 
 
 @dataclass
@@ -108,8 +108,7 @@ def read_package(workout_type: str, data: list) -> Training:
     if workout_type in types.keys():
         training = types[workout_type]
         return training(*data)
-    else:
-        raise KeyError("Ошибка!")
+    raise KeyError("Ошибка!")
 
 
 def main(training: Training) -> None:
